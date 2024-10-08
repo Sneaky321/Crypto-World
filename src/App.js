@@ -1,21 +1,25 @@
-import React from 'react'
-import {Switch, Route, Link} from 'react-router-dom';
-import {Layout, Typography, Space} from 'antd';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './Components/Pages/HomePages.js';
+import BuySell from './Components/Pages/BuySell.js';
+import Wallet from './Components/Pages/Wallet.js';
+import Layout from './Components/Layout.js';
+import './styles.css';
+
 
 const App = () => {
   return (
-    <div className='app'>
-       <div className='navbar'>
-      
-     
-    </div>
-    <div className='main'>
-     </div>
-     <div className='footer'>
-        </div>
-    </div>
-  )
-}
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/Wallet" element={<Wallet />} />
+          <Route path="/markets" element={<BuySell />} />
+        </Routes>
+        </Layout>
+    </Router>
+    
+  );
+};
 
-export default App
-
+export default App;
