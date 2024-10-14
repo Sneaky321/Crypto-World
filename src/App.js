@@ -1,11 +1,11 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './Components/Pages/HomePages.js';
-import BuySell from './Components/Pages/BuySell.js';
-import Wallet from './Components/Pages/Wallet.js';
-import Layout from './Components/Layout.js';
+import HomePage from './Pages/HomePages';
+import BuySell from './Pages/BuySell';
+import Wallet from './Pages/Wallet';
+import Layout from './Components/Layout';
 import './styles.css';
-
 
 const App = () => {
   return (
@@ -16,9 +16,8 @@ const App = () => {
           <Route path="/Wallet" element={<Wallet />} />
           <Route path="/markets" element={<BuySell />} />
         </Routes>
-        </Layout>
+      </Layout>
     </Router>
-    
   );
 };
 
