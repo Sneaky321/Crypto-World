@@ -1,3 +1,4 @@
+import React from 'react'; // Ensure this is the first import
 import { Box, Typography, Link, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 
@@ -6,7 +7,7 @@ const FooterContainer = styled(Box)(({ theme }) => ({
   color: 'FFFFFF',
   padding: '30px 20px', // Reduced padding
 }));
-console.log('Footer rendered');
+
 const FooterSection = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -37,7 +38,7 @@ const Footer = () => {
       'Bitcoin Trading',
       'Instant Buy/Sell',
       'Instant Swap',
-      'CryptoHuntert Markets',
+      'CryptoHunter Markets',
       'CryptoHunter Bundles',
       'CryptoHunter Mastercard',
       'Buy NFTs',
@@ -67,7 +68,6 @@ const Footer = () => {
       'How to buy Ethereum',
       'Cryptocurrency & Tax',
     ],
-   
   };
 
   return (

@@ -1,7 +1,8 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif; /* Use the font of your choice */
-  background-image: url(../public/images/gradient-7258997_1280.png) /* Linear gradient background */
+  background-image: url('../public/images/gradient-7258997_1280.png'); /* Linear gradient background */
+  /* Linear gradient background */
 }/* Navbar styles */
 .navbar {
   position: fixed; /* Keeps the navbar at the top */
