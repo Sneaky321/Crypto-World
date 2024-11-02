@@ -1,14 +1,19 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useGetTrendingCoinsQuery, useGetCoinListQuery } from '../config/cryptoApiSlice';
-import { CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Pagination, Typography, Grid } from '@mui/material';
+import { CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Pagination, Paper } from '@mui/material';
 import AliceCarousel from 'react-alice-carousel';
-import { useEffect, useState } from 'react';
 
 const BuySell = () => {
-  const { data: trendingData, error: trendingError, isLoading: isTrendingLoading } = useGetTrendingCoinsQuery('usd');
-  const { data: coinList, error: coinListError, isLoading: isCoinListLoading } = useGetCoinListQuery('usd');
-  
-  const [page, setPage] = useState(1);
+  const { data: trendingData, isLoading: isTrendingLoading, error: trendingError } = useGetTrendingCoinsQuery('usd');
+  const { data: coinList, isLoading: isCoinListLoading, error: coinListError } = useGetCoinListQuery('usd');
+
+  const [page, setPage] = React.useState(1);
   const itemsPerPage = 10;
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
   if (isTrendingLoading || isCoinListLoading) {
     return <CircularProgress />;
@@ -18,34 +23,37 @@ const BuySell = () => {
     return <div>Error fetching data: {trendingError?.message || coinListError?.message}</div>;
   }
 
-  const items = trendingData.map((coin) => {
-    const profit = coin?.price_change_percentage_24h >= 0;
+  const trendingItems = trendingData.map((coin) => (
+    <div key={coin.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <img src={coin.image} alt={coin.name} height="50" style={{ marginBottom: 5 }} />
+      <span style={{ fontSize: '0.8rem' }}>
+        {coin.symbol.toUpperCase()}
+        &nbsp;
+        <span style={{ color: coin.price_change_percentage_24h >= 0 ? 'rgb(14, 203, 129)' : 'red', fontWeight: 500 }}>
+          {coin.price_change_percentage_24h >= 0 && '+'}{coin.price_change_percentage_24h?.toFixed(2)}%
+        </span>
+      </span>
+      <span style={{ fontSize: '1rem', fontWeight: 500 }}>$ {coin.current_price.toFixed(2)}</span>
+    </div>
+  ));
 
-    return (
-      <div key={coin.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img src={coin?.image} alt={coin.name} height="80" style={{ marginBottom: 10, borderRadius: '50%' }} />
-        <Typography variant="h6">
-          {coin?.symbol.toUpperCase()}
-          <span style={{ color: profit ? 'green' : 'red', marginLeft: 5 }}>
-            {profit && '+'}{coin?.price_change_percentage_24h?.toFixed(2)}%
-          </span>
-        </Typography>
-        <Typography variant="h5" style={{ fontWeight: 'bold' }}>
-          ${coin?.current_price.toFixed(2)}
-        </Typography>
-      </div>
-    );
-  });
-
-  const startIndex = (page - 1) * itemsPerPage;
-  const currentItems = coinList?.slice(startIndex, startIndex + itemsPerPage);
+  const displayCoins = coinList.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
   return (
-    <section style={{ padding: '20px', backgroundColor: '#f8f9fa' }}>
-      <Typography variant="h4" align="center" gutterBottom style={{ marginBottom: '20px', color: '#343a40' }}>
-        Trending Coins
-      </Typography>
-      <div style={{ height: '300px', display: 'flex', alignItems: 'center' }}>
+    <section style={{ padding: '10px', maxWidth: '1200px', margin: '0 auto' }}>
+      <h2 style={{ textAlign: 'center', fontSize: '1.5rem', marginBottom: '20px', padding:'5px' }}></h2>
+      <h2 style={{ textAlign: 'center', fontSize: '1.5rem', marginBottom: '20px' }}></h2>
+      <div style={{ 
+        height: '80px', 
+        display: 'flex', 
+        alignItems: 'center', 
+        marginBottom: '40px', 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        borderRadius: '8px', 
+        padding: '10px',
+        backgroundImage: 'url("")' // Use absolute path
+      }}>
         <AliceCarousel
           mouseTracking
           infinite
@@ -53,86 +61,57 @@ const BuySell = () => {
           animationDuration={1500}
           disableDotsControls
           disableButtonsControls
-          items={items}
+          items={trendingItems}
           autoPlay
+          responsive={{
+            0: { items: 2 },
+            512: { items: 4 }
+          }}
         />
       </div>
 
-      <Typography variant="h4" align="center" gutterBottom style={{ marginTop: '40px', color: '#343a40' }}>
-        Coin List
-      </Typography>
-      <TableContainer component={Paper} style={{ marginTop: '20px', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}>
-        <Table>
-          <TableHead>
-            <TableRow style={{ backgroundColor: '#e0e0e0' }}>
-              <TableCell style={{ fontWeight: 'bold', color: '#495057' }}>COIN</TableCell>
-              <TableCell align="right" style={{ fontWeight: 'bold', color: '#495057' }}>BUY</TableCell>
-              <TableCell align="right" style={{ fontWeight: 'bold', color: '#495057' }}>SELL</TableCell>
-              <TableCell align="right" style={{ fontWeight: 'bold', color: '#495057' }}>CHANGE (24hr)</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {currentItems?.map((coin) => (
-              <TableRow key={coin.id} style={{ '&:hover': { backgroundColor: '#f1f1f1' } }}>
-                <TableCell component="th" scope="row" style={{ display: 'flex', alignItems: 'center', color: 'black' }}>
-                  <img src={coin.image} alt={coin.name} height="20" style={{ marginRight: 10 }} />
-                  {coin.name}
-                </TableCell>
-                <TableCell align="right" style={{ color: 'black' }}>
-                  <Typography variant="body2">${coin.current_price.toFixed(2)}</Typography>
-                </TableCell>
-                <TableCell align="right" style={{ color: 'black' }}>
-                  <Typography variant="body2">${coin.current_price.toFixed(2)}</Typography>
-                </TableCell>
-                <TableCell align="right" style={{ color: coin.price_change_percentage_24h >= 0 ? 'green' : 'red' }}>
-                  {coin.price_change_percentage_24h?.toFixed(2)}%
-                </TableCell>
+      <h2 style={{ textAlign: 'center', fontSize: '1.5rem', marginBottom: '20px' }}>Buy/Sell Coins</h2>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <TableContainer component={Paper} style={{ marginTop: '20px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Coin</TableCell>
+                <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Buy</TableCell>
+                <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Sell</TableCell>
+                <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Change (24hr)</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {displayCoins.map((coin) => (
+                <TableRow key={coin.id}>
+                  <TableCell component="th" scope="row" style={{ fontSize: '0.8rem' }}>
+                    <Link to={`/coins/${coin.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
+                      <img src={coin.image} alt={coin.name} style={{ height: 20, marginRight: 5 }} />
+                      {coin.name}
+                    </Link>
+                  </TableCell>
+                  <TableCell align="right" style={{ fontSize: '0.8rem' }}>${coin.current_price.toFixed(2)}</TableCell>
+                  <TableCell align="right" style={{ fontSize: '0.8rem' }}>${coin.current_price.toFixed(2)}</TableCell>
+                  <TableCell align="right" style={{ fontSize: '0.8rem' }}>
+                    <span style={{ color: coin.price_change_percentage_24h > 0 ? 'green' : 'red' }}>
+                      {coin.price_change_percentage_24h?.toFixed(2)}%
+                    </span>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
-      <Pagination
-        count={Math.ceil(coinList?.length / itemsPerPage)}
-        style={{
-          padding: 20,
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-        }}
-        onChange={(_, value) => {
-          setPage(value);
-          window.scroll(0, 450);
-        }}
-      />
-
-      {/* FAQ Section */}
-      // Inside your BuySell component
-<Grid container spacing={2} style={{ marginTop: '40px', alignItems: 'center', padding: '20px', backgroundColor: '#f1f1f1', borderRadius: '8px' }}>
-  <Grid item xs={12} md={6}>
-    <Typography variant="h5" gutterBottom style={{ color: '#495057', fontWeight: 'bold' }}>
-      Frequently Asked Questions
-    </Typography>
-    <Typography variant="body1" style={{ marginBottom: '10px', color: '#343a40' }}>
-      How many coins are available on CoinSpot?
-    </Typography>
-    <Typography variant="body1" style={{ marginBottom: '10px', color: '#343a40' }}>
-      How do I deposit funds?
-    </Typography>
-    <Typography variant="body1" style={{ marginBottom: '10px', color: '#343a40' }}>
-      How do I see the coins I purchased?
-    </Typography>
-  </Grid>
-  <Grid item xs={12} md={6}>
-    <img 
-      src="your-image-url-here" 
-      alt="FAQ Illustration" 
-      style={{ height: '200px', width: 'auto', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)', float: 'right' }} 
-    />
-  </Grid>
-</Grid>
-
+        <Pagination
+          count={Math.ceil(coinList.length / itemsPerPage)}
+          page={page}
+          onChange={handleChangePage}
+          style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
+          size="small"
+        />
+      </div>
     </section>
   );
 };

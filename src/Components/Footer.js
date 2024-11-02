@@ -2,11 +2,11 @@ import { Box, Typography, Link, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 
 const FooterContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: '#1A1A1A',
-  color: '#B0B0B0',
+  backgroundColor: '#B68DC2',
+  color: 'FFFFFF',
   padding: '30px 20px', // Reduced padding
 }));
-
+console.log('Footer rendered');
 const FooterSection = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -21,12 +21,12 @@ const FooterSection = styled(Grid)(({ theme }) => ({
 }));
 
 const FooterLink = styled(Link)(({ theme }) => ({
-  color: '#B0B0B0',
+  color: '#FFFFFF',
   textDecoration: 'none',
   fontSize: '0.7rem', // Smaller link font size
   margin: '2px 0', // Reduced margin
   '&:hover': {
-    color: '#1DB954',
+    color: '#d43f8d',
   },
 }));
 
@@ -37,9 +37,9 @@ const Footer = () => {
       'Bitcoin Trading',
       'Instant Buy/Sell',
       'Instant Swap',
-      'CoinSpot Markets',
-      'CoinSpot Bundles',
-      'CoinSpot Mastercard',
+      'CryptoHuntert Markets',
+      'CryptoHunter Bundles',
+      'CryptoHunter Mastercard',
       'Buy NFTs',
       'Buy & Sell DeFi Projects',
       'Buy & Sell NFT Projects',
@@ -47,11 +47,11 @@ const Footer = () => {
       'Over the Counter (OTC)',
       'Self Managed Super (SMSF)',
       'API',
-      'CoinSpot App',
+      'CryptoHunter App',
     ],
     ABOUT: [
       'Security',
-      'Trade Safely With CoinSpot',
+      'Trade Safely With CryptoHunter',
       'Press Enquiries',
       'Fees',
       'Terms of Use',
@@ -61,7 +61,7 @@ const Footer = () => {
     EARN: ['Affiliate Program', 'Referral Program'],
     COMMUNITY: ['Facebook', 'Twitter', 'Instagram', 'Reddit'],
     LEARN: [
-      'Learn with CoinSpot',
+      'Learn with CryptoHunter',
       'Bitcoin Halving',
       'How to buy Bitcoin',
       'How to buy Ethereum',
@@ -85,7 +85,7 @@ const Footer = () => {
         ))}
       </Grid>
       <Typography variant="body2" align="center" sx={{ marginTop: '15px', fontSize: '0.6rem', color: '#B0B0B0' }}>
-        © {new Date().getFullYear()} CoinSpot. All rights reserved.
+        © {new Date().getFullYear()} CryptoHunter. All rights reserved.
       </Typography>
     </FooterContainer>
   );

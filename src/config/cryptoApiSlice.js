@@ -17,7 +17,7 @@ export const cryptoApi = createApi({
             query: (id) => SingleCoin(id),
         }),
         getHistoricalChart: builder.query({
-            query: ({ id, days }) => HistoricalChart(id, days),
+            query: ({ id, days, currency }) => HistoricalChart(id, days, currency),
         }),
     }),
 });
@@ -29,3 +29,4 @@ export const {
     useGetSingleCoinQuery, 
     useGetHistoricalChartQuery 
 } = cryptoApi;
+

@@ -1,65 +1,128 @@
-
 body {
-    margin: 0;
-    font-family: 'Inter', sans-serif; /* Use the font of your choice */
-    background-image: linear-gradient(to top, #0250c5 0%, #d43f8d 100%); /* Linear gradient background */
+  margin: 0;
+  font-family: 'Inter', sans-serif; /* Use the font of your choice */
+  background-image: url(../public/images/gradient-7258997_1280.png) /* Linear gradient background */
+}/* Navbar styles */
+.navbar {
+  position: fixed; /* Keeps the navbar at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+  backdrop-filter: blur(10px); /* Blurring the content behind the navbar */
+  z-index: 1000; /* Ensures it stays above other content */
+  padding: 10px 20px; /* Adjusted padding */
+  display: flex; /* Use Flexbox for layout */
+  justify-content: space-between; /* Space between logo and links */
+  align-items: center; /* Center items vertically */
+  font-family: 'Inter', sans-serif; /* Font family */
+}
+
+/* Navbar links */
+.nav-links {
+  display: flex; /* Flexbox for horizontal layout */
+  margin: 0; /* Reset margin */
+  padding: 0; /* Reset padding */
+  list-style: none; /* Remove bullet points */
+  margin-left: auto; /* Pushes nav-links to the right */
+}
+
+.nav-links li {
+  margin: 0 10px; /* Space between links */
+  position: relative; /* For hover effect */
+}
+
+.nav-links a {
+  text-decoration: none; /* Remove underline from links */
+  color: white; /* White color for text */
+  font-size: 16px; /* Font size */
+  font-weight: 600; /* Bold text */
+  transition: color 0.3s, transform 0.3s; /* Transition for hover effects */
+  font-family: 'Inter', sans-serif; /* Font family */
+}
+
+/* Active Link Style */
+.nav-links li a.active {
+  color: #d43f8d; /* Active link color */
+}
+
+/* Link hover effect */
+.nav-links li a:hover {
+  color: #d43f8d; /* Hover color */
+  transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+/* Underline effect on hover */
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d43f8d, #0250c5);
+  transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+  width: 100%; /* Underline expands on hover */
+}
+
+/* Login button styles */
+.login-button {
+  background-color: rgba(212, 63, 141, 0.7); /* Semi-transparent button background */
+  color: white; /* Text color */
+  padding: 8px 16px; /* Padding for the button */
+  border: none; /* Remove default border */
+  border-radius: 15px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  font-weight: 600; /* Font weight */
+  text-decoration: none; /* Remove underline */
+  transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+  margin-left: 20px; /* Space between button and nav-links */
+  margin-right: 30px;
+}
+
+.login-button:hover {
+  background-color: rgba(2, 80, 197, 0.7); /* Change background on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+/* Optional: Animation for mobile menu */
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
   }
-  
-  /* Navbar styles */
-  .navbar {
-    position: fixed; /* Keeps the navbar at the top */
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: transparent;/* White background for the navbar */
-     /* Slight shadow for depth */
-    z-index: 1000; /* Ensures it stays above other content */
-    padding: 10px 20px; /* Spacing inside the navbar */
-    display: flex;
-    justify-content: space-between; /* Space between items */
-    align-items: center; /* Center items vertically */
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  /* Navbar links */
-  .navbar ul {
-    list-style: none; /* Remove bullet points */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    margin-right: 100px; /* Flexbox for horizontal layout */
-  }
-  
-  .navbar li {
-    margin: 0 15px; /* Space between links */
-  }
-  
-  .navbar a {
-    text-decoration: none; /* Remove underline from links */
-    color:white; /* Dark color for text */
-    font-weight: 600; /* Bold text */
-  }
-  
-  /* Hero section styles */
-  .hero {
-    margin-top: 60px; /* Space for fixed navbar */
-    padding: 100px 20px; /* Padding for the hero section */
-    text-align: center;
-    background-image: url('#'); /* Replace with your background image */
-    background-size: cover; /* Cover the entire section */
-    background-position: center; /* Center the image */
-    color: #fff; /* White text */
-    font-family: 'Josefin Sans', sans-serif;
+}
+
+.nav-links.active {
+  animation: slideDown 0.3s ease forwards;
+}
+.hero {
+  margin-top: 60px; /* Space for fixed navbar */
+  padding: 100px 20px; /* Padding for the hero section */
+  text-align: center;
+  background-image: url('#'); /* Replace with your background image */
+  background-size: cover; /* Cover the entire section */
+  background-position: center; /* Center the image */
+  color: #fff; /* White text */
+  font-family: 'Josefin Sans', sans-serif;
   font-weight: 400; /* or use specific weights like 100, 300, 600, etc. */
-  line-height: 1.5;}
-  
-  /* Footer styles */
-  .footer {
-    background-color: #333; /* Dark background */
-    color: #fff; /* White text */
-    padding: 20px 0;
-    text-align: center; /* Center text */
-    position: relative; /* Keep it at the bottom of the page */
-    bottom: 0;
-    width: 100%;
-  }
-  
+  line-height: 1.5;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #333; /* Dark background */
+  color: #fff; /* White text */
+  padding: 20px 0;
+  text-align: center; /* Center text */
+  position: relative; /* Keep it at the bottom of the page */
+  bottom: 0;
+  width: 100%;
+}
