@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles.css'; // Ensure your styles are imported
-
+import { AccountBalanceWalletOutlined } from '@mui/icons-material';
 // Import the image from assets
 import logoImage from '../assets/images/Logo.png';
 
@@ -9,8 +9,8 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="logo" style={{ display: 'flex', alignItems: 'center' }}>
-        <img src={logoImage} alt="Crypto Hunter Logo" style={{ height: '40px', marginRight: '8px' }} />
-        <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: '20px', fontWeight: '600' }}>
+      <AccountBalanceWalletOutlined style={{ fontSize: "36px", color: "#FFC107" }} />
+        <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: '20px', fontWeight: '600', color: 'white', }}>
           Crypto Hunter
         </span>
       </div>

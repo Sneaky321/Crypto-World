@@ -74,10 +74,10 @@ const SignupForm = () => {
                   size="medium"
                   fullWidth
                   sx={{
-                    bgcolor: '#B68DC2',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                     py: 1,
                     '&:hover': {
-                      bgcolor: '#B68DC2.dark',
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%)',
                     },
                   }}
                 >
@@ -106,7 +106,7 @@ const SignupForm = () => {
         <Grid item xs={12} md={6}>
           <Paper
             sx={{
-              bgcolor: 'primary.main',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               color: 'white',
               p: 2,
               borderRadius: 2,
